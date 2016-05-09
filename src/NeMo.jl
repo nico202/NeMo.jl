@@ -1,6 +1,6 @@
 module NeMo
 
-export init
+export initnemo
 export delconf, stdoutlog, synapseswo
 export delnet, addizneuron, addsynapse
 export ncount, walltime, simtime, timereset
@@ -155,7 +155,7 @@ errorname() = bytestring(ccall((:nemo_strerror, libnemo), Ptr{UInt8}, ()))
 
 #######################################################################
 "Public. Initialize nemo, returns network, config"
-init() = newnet(), newconf()
+initnemo() = newnet(), newconf()
 
 "Private: add 1 neuron to net"
 function neuronadd(net, idx, vals)
