@@ -8,8 +8,7 @@ export newsim, delsim, simstep
 export getmembranes
 
 ## TODO: fix this
-const libnemo = "/nix/store/wdzgalv6fd2a7kssy1fyn1vz7954lphr-nemosim-0.7.2/lib/libnemo.so"
-#const libnemo = "libnemo"
+const libnemo = "libnemo"
 
 ## Configuration
 "Create a configuration pointer"
