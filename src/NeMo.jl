@@ -193,7 +193,7 @@ end
 
 ## TODO: move to spikesIO?
 "Add a dict of synapses (improted from JSON) to net"
-synapsesadd(net, sdict) = [synapseadd(net, s) for (_, s) in sdict]
+synapsesadd(net, sdict) = [ synapseadd(net, s) for s in sdict ]
 
 end ## end module
 
