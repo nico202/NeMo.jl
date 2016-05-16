@@ -16,7 +16,10 @@ newconf() = ccall((:nemo_new_configuration, libnemo), Ptr{UInt8}, ())
 
 ## FIXME: prevent segfault on multiple calls
 "Delete a configuration. Segfault if called on unexisting configuration"
-delconf(conf) = ccall((:nemo_delete_configuration, libnemo), Void, (Ptr{UInt8},), conf)
+function delconf(conf)
+    ccall((:nemo_delete_configuration, libnemo),
+                  Void, (Ptr{UInt8},), conf)
+end
 
 "Enables NeMosim log"
 stdoutlog(conf) = ccall((:nemo_log_stdout, libnemo), Ptr{UInt8}, (Ptr{UInt8},), conf) ## Returns null?
@@ -168,21 +171,12 @@ function neuronadd(net, idx, vals)
 end
 
 ## TODO: move to spikesIO?
-"Add a dict of neurons (imported from JSON) to net. Returns neurons added #"
-function neuronsadd(net, ndict)
-    added = 0
-    for n in ndict
-        if isnull(tryparse(Int, n[1])) ## Index is NaN, eval() it!
-            for i in eval(parse(n[1])) ## Useful for defining ranges etc
-                neuronadd(net, i, n[2])
-                added += 1
-            end
-        else
-            neuronad(dnet, parse(Int, n[1]), n[2])
-            added += 1
-        end
+"Add a dict of neurons to net. Returns neurons added #"
+function neuronsadd(net, nlist)
+    for (idx, neuron) in enumerate(nlist)
+        neuronadd(net, idx, neuron)
     end
-    added
+    length(nlist)
 end
 
 "Private: add 1 synapse per dest to the net"#source, dest, delay, weight, plastic
