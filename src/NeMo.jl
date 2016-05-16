@@ -181,8 +181,13 @@ end
 
 "Private: add 1 synapse per dest to the net"#source, dest, delay, weight, plastic
 function synapseadd(net, s)
-    for dest in s[2]
-        addsynapse(net, s[1], dest, s[3][1], s[3][2], s[3][3])
+    for dest in s["to"]
+        addsynapse(net,
+                   s["from"],
+                   dest,
+                   s["values"]["latency"],
+                   s["values"]["intensity"],
+                   s["values"]["learning"])
     end
 end
 
