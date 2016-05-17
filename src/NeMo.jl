@@ -97,8 +97,6 @@ const pointfstim = convert(Ptr{Cuint}, pointer(fstim))
 function simstep(sim, neurons, istim::Vector{UInt32}, Iistim::Vector{Float32})
     nfired = Ref{Cuint}(0)
     fired::Ref{Vector{Cuint}} = zeros(neurons)
-    istim::Array{UInt32}
-    Iistim::Array{Float32}
     res = ccall((:nemo_step, libnemo)
                 , Ptr{UInt8}
                 , (Ptr{UInt8}
