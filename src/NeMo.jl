@@ -74,9 +74,9 @@ function simstep(sim, neurons, fstim::Vector{UInt32}, istim::Vector{UInt32}, Iis
     nfired = Ref{Cuint}(0)
     fired::Ref{Vector{Cuint}}
     fired = zeros(neurons)
-    istim::Array{UInt32}
-    fstim::Array{UInt32}
-    Iistim::Array{Float32}
+    ## istim::Array{UInt32}
+    ## fstim::Array{UInt32}
+    ## Iistim::Array{Float32}
     res = ccall((:nemo_step, libnemo)
                 , Ptr{UInt8}
                 , (Ptr{UInt8}
