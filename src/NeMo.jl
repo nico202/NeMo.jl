@@ -1,3 +1,4 @@
+__precompile__()
 module NeMo
 
 export initnemo
@@ -7,15 +8,23 @@ export ncount, walltime, simtime, timereset
 export newsim, delsim, simstep
 export getmembranes
 
-## TODO: fix this
 const libnemo = "libnemo"
 
 ## Configuration
-"Create a configuration pointer"
+"""
+    newconf()
+
+Create a configuration, return its pointer. Not exported (use `initnemo()` instead)
+"""
 newconf() = ccall((:nemo_new_configuration, libnemo), Ptr{UInt8}, ())
 
 ## FIXME: prevent segfault on multiple calls
-"Delete a configuration. Segfault if called on unexisting configuration"
+"""
+    delconf(conf)
+
+Delete a configuration. `conf` is the pointer to the config
+Segfault if called on unexisting configuration
+"""
 function delconf(conf)
     ccall((:nemo_delete_configuration, libnemo),
                   Void, (Ptr{UInt8},), conf)
